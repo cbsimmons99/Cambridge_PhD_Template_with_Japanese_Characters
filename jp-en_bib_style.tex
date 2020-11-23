@@ -1,0 +1,118 @@
+% 2020 Charles Simmons
+
+
+% xeCJK enables the use of Chinese, Japanese, and Korean characters
+% Requires XeLaTeX compiler.
+\usepackage{xeCJK}
+\setCJKmainfont{IPAMincho}
+\setCJKsansfont{IPAGothic}
+\setCJKmonofont{IPAGothic}
+
+
+% This is not a comprehensive collection of all drivers necessary. More will be made as necessary.
+
+% Bibliography driver for books. 
+% I used the existing macros from standard.bbx and added user-designated fields.
+% It is not necessary to have these fields. 
+% "namea" is the name written in Japanese characters.
+% "usera" is used for the translation of the title.
+\DeclareBibliographyDriver{book}{
+    \usebibmacro{bibindex}%
+    \usebibmacro{begentry}%
+    \printnames{namea}%
+    \newunit
+    \usebibmacro{author/editor+others/translator+others}%
+    \setunit{\printdelim{nametitledelim}}\newblock
+    \usebibmacro{maintitle+title}%
+    \newunit
+    \printfield[brackets]{usera}%
+    \newunit
+    \printlist{language}%
+    \newunit\newblock
+    \usebibmacro{byauthor}%
+    \newunit\newblock
+    \usebibmacro{byeditor+others}%
+    \newunit\newblock
+    \printfield{edition}%
+    \newunit
+    \iffieldundef{maintitle}
+        {\printfield{volume}%
+        \printfield{part}}
+        {}%
+    \newunit
+    \printfield{volumes}%
+    \newunit\newblock
+    \usebibmacro{series+number}%
+    \newunit\newblock
+    \printfield{note}%
+    \newunit\newblock
+    \usebibmacro{publisher+location+date}%
+    \newunit\newblock
+    \usebibmacro{chapter+pages}%
+    \newunit
+    \printfield{pagetotal}%
+    \newunit\newblock
+    \iftoggle{bbx:isbn}
+        {\printfield{isbn}}
+        {}%
+    \newunit\newblock
+    \usebibmacro{doi+eprint+url}%
+    \newunit\newblock
+    \usebibmacro{addendum+pubstate}%
+    \setunit{\bibpagerefpunct}\newblock
+    \usebibmacro{pageref}%
+    \newunit\newblock
+    \iftoggle{bbx:related}
+        {\usebibmacro{related:init}%
+        \usebibmacro{related}}
+        {}%
+    \usebibmacro{finentry}
+}
+
+% Bibliography driver for articles. 
+% I used the existing macros from standard.bbx and added user-designated fields.
+% It is not necessary to have these fields. 
+% "namea" is the name written in Japanese characters.
+% "usera" is used for the translation of the title.
+\DeclareBibliographyDriver{article}{%
+    \usebibmacro{bibindex}%
+    \usebibmacro{begentry}%
+    \printnames{namea}
+    \newunit
+    \usebibmacro{author/translator+others}%
+    \setunit{\printdelim{nametitledelim}}\newblock
+    \usebibmacro{title}%
+    \newunit
+    \printfield[brackets]{usera}
+    \newunit
+    \printlist{language}%
+    \newunit\newblock
+    \usebibmacro{byauthor}%
+    \newunit\newblock
+    \usebibmacro{bytranslator+others}%
+    \newunit\newblock
+    \printfield{version}%
+    \newunit\newblock
+    \usebibmacro{in:}%
+    \usebibmacro{journal+issuetitle}%
+    \newunit
+    \usebibmacro{byeditor+others}%
+    \newunit
+    \usebibmacro{note+pages}%
+    \newunit\newblock
+    \iftoggle{bbx:isbn}
+        {\printfield{issn}}
+        {}%
+    \newunit\newblock
+    \usebibmacro{doi+eprint+url}%
+    \newunit\newblock
+    \usebibmacro{addendum+pubstate}%
+    \setunit{\bibpagerefpunct}\newblock
+    \usebibmacro{pageref}%
+    \newunit\newblock
+    \iftoggle{bbx:related}
+        {\usebibmacro{related:init}%
+        \usebibmacro{related}}
+        {}%
+    \usebibmacro{finentry}
+}
